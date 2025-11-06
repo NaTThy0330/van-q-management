@@ -16,7 +16,6 @@ const passengerSchema = new mongoose.Schema(
   { timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" } },
 );
 
-passengerSchema.index({ email: 1 }, { unique: true });
 passengerSchema.index({ role: 1 });
 
 module.exports = mongoose.model("Passenger", passengerSchema);
