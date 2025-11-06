@@ -17,6 +17,4 @@ const driverSchema = new mongoose.Schema(
   { timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" } },
 );
 
-driverSchema.index({ licenseNo: 1 }, { unique: true });
-
 module.exports = mongoose.model("Driver", driverSchema);

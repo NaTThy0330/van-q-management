@@ -16,7 +16,6 @@ const vanSchema = new mongoose.Schema(
   { timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" } },
 );
 
-vanSchema.index({ plateNumber: 1 }, { unique: true });
 vanSchema.index({ driverId: 1 });
 
 module.exports = mongoose.model("Van", vanSchema);
