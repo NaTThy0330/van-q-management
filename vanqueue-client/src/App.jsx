@@ -1,41 +1,30 @@
 import './App.css'
-import { endpoints } from './lib/api'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
+import DashboardPage from './pages/DashboardPage'
+import ProtectedRoute from './components/ProtectedRoute'
 
-function App() {
-  return (
-    <main className="app">
-      <section className="app__hero">
-        <h1>Van Queue &amp; Departure System</h1>
-        <p>
-          Sprint 1 scaffolds the core infrastructure for the passenger, driver, and
-          admin workflows. The frontend currently exposes a minimal shell while the
-          backend delivers authentication, database schemas, and health checks.
-        </p>
-      </section>
-
-      <section className="app__grid">
-        <article>
-          <h2>What&apos;s Ready</h2>
-          <ul>
-            <li>Environment configuration via <code>.env</code></li>
-            <li>
-              API health check at <code>{endpoints.health}</code>
-            </li>
-            <li>Authentication endpoints for registration and login</li>
-          </ul>
-        </article>
-
-        <article>
-          <h2>Up Next</h2>
-          <ul>
-            <li>Passenger booking and queue management UI</li>
-            <li>Driver dashboards for payment verification</li>
-            <li>Admin controls for routes, vans, and drivers</li>
-          </ul>
-        </article>
-      </section>
-    </main>
-  )
-}
+const App = () => (
+  <AuthProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </BrowserRouter>
+  </AuthProvider>
+)
 
 export default App
